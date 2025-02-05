@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+
 
 public class Platform : MonoBehaviour
 {
@@ -9,17 +9,16 @@ public class Platform : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
-            
-            // Перевіряємо чи гравець рухався вниз
-            if (playerRb != null && collision.relativeVelocity.y <= 0)
+            if (collision.relativeVelocity.y < 0)
             {
-                // Скидаємо вертикальну швидкість для стабільного стрибка
-                playerRb.linearVelocity = new Vector2(playerRb.linearVelocity.x, 0);
-                
-                // Додаємо силу імпульсом
-                playerRb.AddForce(Vector2.up * forceJump, ForceMode2D.Impulse);
+                collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.up * forceJump;
             }
+        }
+        if (collision.gameObject.name.Contains("DeadZone"))
+        {
+            float randX = Random.Range(-2, 2);
+            float randY = Random.Range(transform.position.y + 16f, transform.position.y + 16.5f);
+            transform.position = new Vector3(randX, randY, 0);
         }
     }
 }
