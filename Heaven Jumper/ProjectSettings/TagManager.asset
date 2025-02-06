@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Cloud
   - Platform
+  - playButton
+  - DeadZone
   layers:
   - Default
   - TransparentFX
@@ -13,7 +15,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - GameOver
   - 
   - 
   - 
