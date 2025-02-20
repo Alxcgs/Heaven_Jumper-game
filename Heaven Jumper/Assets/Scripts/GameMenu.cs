@@ -13,13 +13,13 @@ public class GameMenu : MonoBehaviour
         mainMenuButton.onClick.AddListener(GoToMainMenu);
     }
 
-    public void RestartGame()
+    private void RestartGame()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Game");
     }
 
-    public void GoToMainMenu()
+    private void GoToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
     }

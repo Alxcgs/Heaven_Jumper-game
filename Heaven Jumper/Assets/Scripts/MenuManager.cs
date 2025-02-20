@@ -12,15 +12,15 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Button soundButton;
     [SerializeField] private Button shopButton; 
     [SerializeField] private Button closeShopButton; 
-    [SerializeField] private Sprite soundOnIcon;
-    [SerializeField] private Sprite soundOffIcon;
+    //[SerializeField] private Sprite soundOnIcon;
+    //[SerializeField] private Sprite soundOffIcon;
     
 
     [Header("Panels")]
     [SerializeField] private GameObject characterSelectionPanel;
     [SerializeField] private GameObject shopPanel; 
 
-    private bool isSoundOn = true;
+    //private bool isSoundOn = true;
 
     void Start()
     {
@@ -36,7 +36,7 @@ public class MenuManager : MonoBehaviour
         
         
         playButton.onClick.AddListener(StartGame);
-        soundButton.onClick.AddListener(ToggleSound);
+        //soundButton.onClick.AddListener(ToggleSound);
         shopButton.onClick.AddListener(OpenShop);
         closeShopButton.onClick.AddListener(CloseShop);
         
@@ -51,15 +51,8 @@ public class MenuManager : MonoBehaviour
         shopPanel.SetActive(false); 
 
         
-        isSoundOn = PlayerPrefs.GetInt("Sound", 1) == 1;
-        UpdateSoundIcon();
-    }
-
-    
-    void SetSelectedCharacter()
-    {
-        int index = PlayerEconomy.GetSelectedCharacterIndex();
-        Debug.Log("Збережений індекс обраного персонажа: " + index);
+        //isSoundOn = PlayerPrefs.GetInt("Sound", 1) == 1;
+        //UpdateSoundIcon();
     }
 
     
@@ -82,23 +75,17 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadSceneAsync("Game");
     }
 
-    private void ToggleSound() 
-    {
-        isSoundOn = !isSoundOn;
-        AudioListener.volume = isSoundOn ? 1 : 0;
-        PlayerPrefs.SetInt("Sound", isSoundOn ? 1 : 0);
-        UpdateSoundIcon();
-    }
+    //private void ToggleSound() 
+    //{
+        //isSoundOn = !isSoundOn;
+        //AudioListener.volume = isSoundOn ? 1 : 0;
+        //PlayerPrefs.SetInt("Sound", isSoundOn ? 1 : 0);
+        //UpdateSoundIcon();
+    //}
 
-    private void UpdateSoundIcon() 
-    {
-        soundButton.image.sprite = isSoundOn ? soundOnIcon : soundOffIcon;
-    }
-
-    public void OpenCharacterSelection() => characterSelectionPanel.SetActive(true);
-
-    public void ClosePanels() 
-    {
-        characterSelectionPanel.SetActive(false);
-    }
+    //private void UpdateSoundIcon() 
+    //{
+        //soundButton.image.sprite = isSoundOn ? soundOnIcon : soundOffIcon;
+    //}
+    
 }

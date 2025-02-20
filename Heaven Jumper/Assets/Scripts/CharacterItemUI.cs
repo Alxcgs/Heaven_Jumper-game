@@ -2,25 +2,26 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
+
 public class CharacterItemUI : MonoBehaviour
 {
-    [SerializeField] Color itemNotSelectedColor;
-    [SerializeField] Color itemSelectedColor;
+    [Header("Appearance Settings")]
+    [SerializeField] Color baseColor;         // Базовий колір елемента
+    [SerializeField] Color selectedColor;     // Яскравіший варіант базового кольору (при виборі)
+    [SerializeField] Color outlineColor = Color.white; // Колір контуру (світлий)
 
-    
-    
-    [Space (20f)]
-    [SerializeField] Image characterImage;
-    [SerializeField] TMP_Text characterName;
-    [SerializeField] TMP_Text characterPrice;
-    [SerializeField] Button purchaseButton;
-    
-    [Space (20f)]
-    [SerializeField] Button itemButton;
-    [SerializeField] Image itemImage;
-    [SerializeField] Outline itemOutline;
-    
-    
+    [Header("UI Elements")]
+    [SerializeField] Image characterImage;      // Зображення персонажа
+    [SerializeField] TMP_Text characterName;    // Назва персонажа
+    [SerializeField] TMP_Text characterPrice;   // Ціна персонажа
+    [SerializeField] Button purchaseButton;       // Кнопка покупки
+
+    [Space(20f)]
+    [SerializeField] Button itemButton;         // Кнопка для вибору елемента
+    [SerializeField] Image itemImage;      // Фон елемента (на ньому відображається базовий колір)
+    [SerializeField] Outline itemOutline;       // Контур елемента
+
+    // Встановлюємо позицію елемента у контейнері
     public void SetItemPosition(Vector2 position)
     {
         GetComponent<RectTransform>().anchoredPosition += position;
@@ -41,39 +42,51 @@ public class CharacterItemUI : MonoBehaviour
         characterPrice.text = price.ToString();
     }
     
+    // Викликається, коли персонажа куплено – ховаємо кнопку покупки й встановлюємо базовий вигляд
     public void SetCharacterAsPurchased()
     {
         purchaseButton.gameObject.SetActive(false);
         itemButton.interactable = true;
-        
-        itemImage.color = itemNotSelectedColor;
+        SetBaseAppearance();
     }
     
+    // Налаштовуємо обробку натискання для покупки
     public void OnItemPurchased(int itemIndex, UnityAction<int> action)
     {
         purchaseButton.onClick.RemoveAllListeners();
         purchaseButton.onClick.AddListener(() => action.Invoke(itemIndex));
     }
     
-    public void OnItemSelect (int itemIndex, UnityAction<int> action)
+    // Налаштовуємо обробку натискання для вибору елемента
+    public void OnItemSelect(int itemIndex, UnityAction<int> action)
     {
         itemButton.interactable = true;
         itemButton.onClick.RemoveAllListeners();
         itemButton.onClick.AddListener(() => action.Invoke(itemIndex));
     }
     
+    // Встановлюємо базовий вигляд: базовий колір, без контуру
+    private void SetBaseAppearance()
+    {
+        if(itemOutline != null)
+            itemOutline.enabled = false;
+        itemButton.interactable = true;
+    }
+    
+    // Відображаємо елемент як вибраний: світлий контур і яскравіший фон
     public void SelectItem()
     {
-        itemOutline.enabled = true;
-        itemImage.color = itemSelectedColor;
+        if(itemOutline != null)
+        {
+            itemOutline.enabled = true;
+            itemOutline.effectColor = outlineColor;
+        }
         itemButton.interactable = false;
     }
     
+    // Повертаємо елемент до базового вигляду
     public void DeselectItem()
     {
-        itemOutline.enabled = false;
-        itemImage.color = itemNotSelectedColor;
-        itemButton.interactable = true;
+        SetBaseAppearance();
     }
-
 }

@@ -1704,8 +1704,9 @@ GameObject:
   - component: {fileID: 2021026717}
   - component: {fileID: 2021026713}
   - component: {fileID: 2021026712}
+  - component: {fileID: 2021026718}
   m_Layer: 0
-  m_Name: Player RSU Hit Red
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1859,6 +1860,19 @@ CapsuleCollider2D:
   m_Offset: {x: 0.008435845, y: 0.4693761}
   m_Size: {x: 0.8206501, y: 0.9612477}
   m_Direction: 0
+--- !u!114 &2021026718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021026711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a9e1f2040a6d4d7695a7e10815307cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterDB: {fileID: 11400000, guid: a8d25a72644ad43f8a6d07b77f5c2f45, type: 2}
 --- !u!1 &2064579476
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,12 +6,12 @@ public class CharacterShopUI : MonoBehaviour
 {
     [Header("Layout Settings")]
     [SerializeField] float itemSpacing = 0.5f;
-    float itemHeight;
+    float _itemHeight;
     
     [Header("UI Elements")]
     [SerializeField] Image selectedCharacterIcon;
-    [SerializeField] Transform ShopMenu;
-    [SerializeField] Transform ShopItemsContainer;
+    [SerializeField] Transform shopMenu;
+    [SerializeField] Transform shopItemsContainer;
     [SerializeField] GameObject itemPrefab;
 
     [Space(20)] 
@@ -22,24 +22,29 @@ public class CharacterShopUI : MonoBehaviour
     [SerializeField] Image mainMenuCharacterIcon;
     [SerializeField] TMP_Text mainMenuCharacterName;
     
-    int newSelectedItemIndex = 0;
-    int previousSelectedItemIndex = 0;
+    int _newSelectedItemIndex;
+    int _previousSelectedItemIndex;
 
     public void GenerateShopItemsUi()
     {
+        //Loop throw save purchased items and make them as purchased in the Database array
+        foreach (int purchasedCharacterIndex in PlayerEconomy.Instance.PurchasedCharacters)
+        {
+            characterDB.PurchaseCharacter(purchasedCharacterIndex);
+        }
         
-        itemHeight = ShopItemsContainer.GetChild(0).GetComponent<RectTransform>().sizeDelta.y;
-        Destroy(ShopItemsContainer.GetChild(0).gameObject);
-        ShopItemsContainer.DetachChildren();
+        _itemHeight = shopItemsContainer.GetChild(0).GetComponent<RectTransform>().sizeDelta.y;
+        Destroy(shopItemsContainer.GetChild(0).gameObject);
+        shopItemsContainer.DetachChildren();
         
         
         for (int i = 0; i < characterDB.CharactersCount; i++)
         {
             Character character = characterDB.GetCharacter(i);
-            CharacterItemUI uiItem = Instantiate(itemPrefab, ShopItemsContainer).GetComponent<CharacterItemUI>();
+            CharacterItemUI uiItem = Instantiate(itemPrefab, shopItemsContainer).GetComponent<CharacterItemUI>();
             
             
-            uiItem.SetItemPosition(Vector2.down * i * (itemHeight + itemSpacing));
+            uiItem.SetItemPosition(Vector2.down * i * (_itemHeight + itemSpacing));
             
             
             uiItem.gameObject.name = "Item" + i + "-" + character.name;
@@ -62,8 +67,8 @@ public class CharacterShopUI : MonoBehaviour
             }
             
             
-            ShopItemsContainer.GetComponent<RectTransform>().sizeDelta =
-                Vector2.up * ((itemHeight + itemSpacing) * characterDB.CharactersCount + itemSpacing);
+            shopItemsContainer.GetComponent<RectTransform>().sizeDelta =
+                Vector2.up * ((_itemHeight + itemSpacing) * characterDB.CharactersCount + itemSpacing);
 
             
             void OnItemSelected(int index)
@@ -94,24 +99,52 @@ public class CharacterShopUI : MonoBehaviour
             }
             void SelectItemUi(int itemIndex)
             {
-                previousSelectedItemIndex = newSelectedItemIndex;
-                newSelectedItemIndex = itemIndex;
+                _previousSelectedItemIndex = _newSelectedItemIndex;
+                _newSelectedItemIndex = itemIndex;
 
-                CharacterItemUI newUiItem = getItemUI(newSelectedItemIndex);
-                CharacterItemUI prevUiItem = getItemUI(previousSelectedItemIndex);
+                CharacterItemUI newUiItem = GetItemUI(_newSelectedItemIndex);
+                CharacterItemUI prevUiItem = GetItemUI(_previousSelectedItemIndex);
                 
                 prevUiItem.DeselectItem();
                 newUiItem.SelectItem();
             }
             
-            CharacterItemUI getItemUI(int index)
+            CharacterItemUI GetItemUI(int index)
             {
-                return ShopItemsContainer.GetChild(index).GetComponent<CharacterItemUI>();
+                return shopItemsContainer.GetChild(index).GetComponent<CharacterItemUI>();
             }
             
             void OnItemPurchased(int index)
             {
-                Debug.Log("Item purchased: " + index);
+                // Отримуємо дані персонажа та UI-елемент
+                Character character = characterDB.GetCharacter(index);
+                CharacterItemUI uiItem = GetItemUI(index);
+    
+                // Зчитуємо поточну кількість монет з PlayerPrefs
+                int currentCoins = PlayerPrefs.GetInt("Coins", 0);
+    
+                if (currentCoins >= character.price)
+                {
+                    // Витрачаємо монети за допомогою PlayerEconomy
+                    PlayerEconomy.Instance.SpendCoins(character.price);
+                    // PlayerEconomy.Instance.SpendCoins(...) викличе також OnCoinsChanged та збереже значення
+        
+                    // Позначаємо персонажа як купленого в базі даних
+                    characterDB.PurchaseCharacter(index);
+        
+                    // Оновлюємо UI елемента: ховаємо кнопку покупки, активуємо кнопку вибору
+                    uiItem.SetCharacterAsPurchased();
+                    uiItem.OnItemSelect(index, OnItemSelected);
+        
+                    // Реєструємо куплений персонаж у даних (через PlayerEconomy)
+                    PlayerEconomy.Instance.AddPurchasedCharacter(index);
+        
+                    Debug.Log("Персонаж куплено: " + character.name);
+                }
+                else
+                {
+                    Debug.LogWarning("Недостатньо монет для покупки персонажа: " + character.name);
+                }
             }
         }
     }
@@ -137,11 +170,11 @@ public class CharacterShopUI : MonoBehaviour
     
     public void SelectItemUI(int index)
     {
-         previousSelectedItemIndex = newSelectedItemIndex;
-         newSelectedItemIndex = index;
+         _previousSelectedItemIndex = _newSelectedItemIndex;
+         _newSelectedItemIndex = index;
 
-         CharacterItemUI newUiItem = ShopItemsContainer.GetChild(newSelectedItemIndex).GetComponent<CharacterItemUI>();
-         CharacterItemUI prevUiItem = ShopItemsContainer.GetChild(previousSelectedItemIndex).GetComponent<CharacterItemUI>();
+         CharacterItemUI newUiItem = shopItemsContainer.GetChild(_newSelectedItemIndex).GetComponent<CharacterItemUI>();
+         CharacterItemUI prevUiItem = shopItemsContainer.GetChild(_previousSelectedItemIndex).GetComponent<CharacterItemUI>();
 
          prevUiItem.DeselectItem();
          newUiItem.SelectItem();

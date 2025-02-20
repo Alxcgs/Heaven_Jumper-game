@@ -4,35 +4,35 @@ using TMPro;
 public class ScoreManager : MonoBehaviour
 {
     public TMP_Text scoreText;
-    private Transform player;
+    private Transform _player;
 
-    private float nextScoreHeight;
+    private float _nextScoreHeight;
     
-    private int score;
+    private int _score;
     
     public float heightInterval = 1f;
     
     void Start()
     {
-        player = GameObject.FindWithTag("Player").transform;
+        _player = GameObject.FindWithTag("Player").transform;
         
-        nextScoreHeight = player.position.y + heightInterval;
-        score = 0;
-        scoreText.text = score.ToString();
+        _nextScoreHeight = _player.position.y + heightInterval;
+        _score = 0;
+        scoreText.text = _score.ToString();
     }
     
     private void Update()
     {
-        if (player.position.y >= nextScoreHeight)
+        if (_player.position.y >= _nextScoreHeight)
         {
             ScorePlus(1);
-            nextScoreHeight += heightInterval;
+            _nextScoreHeight += heightInterval;
         }
     }
 
-    public void ScorePlus(int count)
+    private void ScorePlus(int count)
     {
-        score += count;
-        scoreText.text = score.ToString();
+        _score += count;
+        scoreText.text = _score.ToString();
     }
 }

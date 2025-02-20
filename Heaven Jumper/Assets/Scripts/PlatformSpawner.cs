@@ -25,7 +25,7 @@ public class PlatformSpawner : MonoBehaviour
 
         _platformCounter++;
 
-        // Спораджуємо зірку кожні 5-10 платформ
+        // Генеруємо зірку кожні 5-10 платформ
         if (_platformCounter >= platformsPerStar && 
             Mathf.Abs(_spawnerPos.y - _lastStarY) > yLevelTolerance)
         {

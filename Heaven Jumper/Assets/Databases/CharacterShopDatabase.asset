@@ -19,9 +19,9 @@ MonoBehaviour:
     isPurchased: 1
   - image: {fileID: 6053436177387001487, guid: 4d701fb8bab94204e92af20e3e7b6a8a, type: 3}
     name: Ghost
-    price: 500
+    price: 100
     isPurchased: 1
   - image: {fileID: -3875180428987827631, guid: 4d701fb8bab94204e92af20e3e7b6a8a, type: 3}
     name: Eva
-    price: 1000
+    price: 500
     isPurchased: 0

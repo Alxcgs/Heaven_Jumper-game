@@ -452,6 +452,7 @@
 "Assets/Scripts/Platform.cs"
 "Assets/Scripts/PlatformSpawner.cs"
 "Assets/Scripts/Player.cs"
+"Assets/Scripts/PlayerAppearance.cs"
 "Assets/Scripts/PlayerEconomy.cs"
 "Assets/Scripts/ScoreManager.cs"
 "Assets/Scripts/Star.cs"
