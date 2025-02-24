@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
+using DG.Tweening;
 
 public class CharacterItemUI : MonoBehaviour
 {
@@ -88,5 +89,13 @@ public class CharacterItemUI : MonoBehaviour
     public void DeselectItem()
     {
         SetBaseAppearance();
+    }
+
+    public void AnimateShakeItem()
+    {
+        //зупинити попередню анімацію, якщо вона є
+        transform.DOComplete();
+
+        transform.DOShakePosition(1f, new Vector3(8f, 0f, 0f), 10, 0).SetEase(Ease.Linear);
     }
 }

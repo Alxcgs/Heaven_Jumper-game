@@ -123,6 +123,7 @@
 -define:ENABLE_LEGACY_INPUT_MANAGER
 -define:TEXTCORE_FONT_ENGINE_1_5_OR_NEWER
 -define:TEXTCORE_TEXT_ENGINE_1_5_OR_NEWER
+-define:DOTWEEN
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
 -r:"/Applications/Unity/Hub/Editor/6000.0.36f1/PlaybackEngines/AndroidPlayer/Unity.Android.Gradle.dll"
@@ -369,10 +370,12 @@
 -r:"/Applications/Unity/Hub/Editor/6000.0.36f1/Unity.app/Contents/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll"
 -r:"/Applications/Unity/Hub/Editor/6000.0.36f1/Unity.app/Contents/NetStandard/ref/2.1.0/netstandard.dll"
 -r:"/Applications/Unity/Hub/Editor/6000.0.36f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.iOS.Extensions.Xcode.dll"
+-r:"Assets/Plugins/Demigiant/DOTween/DOTween.dll"
 -r:"Library/PackageCache/com.unity.collections@56bff8827a7e/Unity.Collections.LowLevel.ILSupport/Unity.Collections.LowLevel.ILSupport.dll"
 -r:"Library/PackageCache/com.unity.ext.nunit@60ef35ffd3cd/net40/unity-custom/nunit.framework.dll"
 -r:"Library/PackageCache/com.unity.nuget.mono-cecil@d6f9955a5d5f/Mono.Cecil.dll"
 -r:"Library/PackageCache/com.unity.visualscripting@1b53f46e931b/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
+-r:"Library/Bee/artifacts/200b0aE.dag/Assembly-CSharp-firstpass.ref.dll"
 -r:"Library/Bee/artifacts/200b0aE.dag/PPv2URPConverters.ref.dll"
 -r:"Library/Bee/artifacts/200b0aE.dag/PsdPlugin.ref.dll"
 -r:"Library/Bee/artifacts/200b0aE.dag/Unity.2D.Animation.Editor.ref.dll"
@@ -455,6 +458,7 @@
 "Assets/Scripts/PlayerAppearance.cs"
 "Assets/Scripts/PlayerEconomy.cs"
 "Assets/Scripts/ScoreManager.cs"
+"Assets/Scripts/SpecialCloud.cs"
 "Assets/Scripts/Star.cs"
 "Assets/Scripts/UICoinsUpdater.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"

@@ -13,7 +13,7 @@ public class UICoinsUpdater : MonoBehaviour
 
     private void UpdateCoinsText(int coins)
     {
-        coinsText.text = $"{coins} ☆";
+        coinsText.text = $"{coins}";
     }
 
     void OnDestroy()

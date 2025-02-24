@@ -22,6 +22,10 @@ MonoBehaviour:
     price: 100
     isPurchased: 1
   - image: {fileID: -3875180428987827631, guid: 4d701fb8bab94204e92af20e3e7b6a8a, type: 3}
-    name: Eva
+    name: EVA
     price: 500
+    isPurchased: 0
+  - image: {fileID: -4667628145153450467, guid: 4d701fb8bab94204e92af20e3e7b6a8a, type: 3}
+    name: ANNIA
+    price: 1000
     isPurchased: 0
