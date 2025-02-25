@@ -18,7 +18,7 @@ public class ScoreManager : MonoBehaviour
         
         _nextScoreHeight = _player.position.y + heightInterval;
         _score = 0;
-        scoreText.text = _score.ToString();
+        scoreText.text = "Score: " + _score.ToString();
     }
     
     private void Update()
@@ -33,6 +33,6 @@ public class ScoreManager : MonoBehaviour
     private void ScorePlus(int count)
     {
         _score += count;
-        scoreText.text = _score.ToString();
+        scoreText.text = "Score: " + _score.ToString();
     }
 }

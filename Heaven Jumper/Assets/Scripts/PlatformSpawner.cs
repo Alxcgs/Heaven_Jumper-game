@@ -26,6 +26,10 @@ public class PlatformSpawner : MonoBehaviour
         for (int i = 0; i < 10; i++) SpawnPlatform();
     }
 
+    public void SpawnNewPlatform()
+    {
+        SpawnPlatform();
+    }
     void SpawnPlatform()
     {
         _spawnerPos.x = Random.Range(-2f, 2f);
@@ -44,8 +48,7 @@ public class PlatformSpawner : MonoBehaviour
         
         _platformCounter++;
 
-        if (_platformCounter >= platformsPerStar && 
-            Mathf.Abs(_spawnerPos.y - _lastStarY) > yLevelTolerance)
+        if (_platformCounter >= platformsPerStar)
         {
             SpawnStar();
             _platformCounter = 0;
@@ -59,7 +62,7 @@ public class PlatformSpawner : MonoBehaviour
                Mathf.Abs(_spawnerPos.y - _lastSpecialCloudY) > minVerticalDistanceBetweenSpecial;
     }
 
-    void SpawnStar()
+    public void SpawnStar()
     {
         Vector3 starPos = _spawnerPos + new Vector3(Random.Range(-1f, 1f), 1f, 0);
         Instantiate(starPrefab, starPos, Quaternion.identity);

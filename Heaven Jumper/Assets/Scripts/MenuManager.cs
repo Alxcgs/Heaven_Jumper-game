@@ -9,20 +9,12 @@ public class MenuManager : MonoBehaviour
 
     [Header("Buttons")]
     [SerializeField] private Button playButton;
-    [SerializeField] private Button soundButton;
     [SerializeField] private Button shopButton;
     [SerializeField] private Button closeShopButton;
-    //[SerializeField] private Sprite soundOnIcon;
-    //[SerializeField] private Sprite soundOffIcon;
 
     [Header("Panels")]
-    [SerializeField] private GameObject characterSelectionPanel;
     [SerializeField] private GameObject shopPanel;
-
-    [Header("Purchase FX & Spawn")]
-    [SerializeField] private ParticleSystem purchaseFX;
-    [SerializeField] private Transform purchaseFXSpawnPoint;
-
+    
     void Start()
     {
         if (characterShopUI != null)
@@ -35,7 +27,6 @@ public class MenuManager : MonoBehaviour
         }
 
         playButton.onClick.AddListener(StartGame);
-        //soundButton.onClick.AddListener(ToggleSound);
         shopButton.onClick.AddListener(OpenShop);
         closeShopButton.onClick.AddListener(CloseShop);
 
